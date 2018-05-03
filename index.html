@@ -1,0 +1,453 @@
+<!DOCTYPE HTML> <html> <head> <meta charset="utf-8">
+<title>Kitchen Buddy</title>
+
+<style type="text/css">
+body {
+	background-attachment:fixed;
+} h2 {
+  font: 400 100px/1.3 'Berkshire Swash', Helvetica, sans-serif;
+  text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0,0,0,0.15);
+}
+</style>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+</head>
+
+<body>
+
+<h1><font size="20"><center><font color="white" font face='Berkshire Swash'>Kitchen Buddy</font></center></font></h1>
+<p></p>
+<p><font size="5" color = #d3d3d3 font face='Berkshire Swash'><center>The best cooking recipe search engine catered to your specifications and restrictions</center></font></p>
+<p></p>
+<p></p>
+<table width="100%" cellpadding="70">
+	<tr>
+		<td>
+		<table width = "100%" align = "center" valign="top" cellpadding = "50"><center>
+			<tr>
+				<td width="50%" align="right" valign="top">
+					<p><font color="white" size="6" face="Berkshire Swash">Time Contraint (minutes): </font>
+					<div id="timeBlock">
+					<input id="makeTime" type="number" placeholder="Time Available to Cook" style="font-size:16pt;height:40px;width:300px;font-family: Trebuchet MS"></p>
+					</div>
+					<div id="newlineBlock">
+					  <br>
+					</div>
+					<p><font color="white" size="6" face="Berkshire Swash">Dietary Restrictions:</font>
+					<div id="dietaryBlock" >
+					  <select id="diet-names" name="diet-names" form="diets" onclick="getDietChoice" style="font-size:16pt;height:45px;width:308px;" >
+						<option id="dietChoice" value="insig" selected>None</option>
+						<option id="dietChoice" value="388^Lacto Vegetarian">Lacto Vegetarian</option>
+						<option id="dietChoice" value="387^Lacto-Ovo Vegetarian">Lacto-Ovo Vegetarian</option>
+						<option id="dietChoice" value="403^Paleo">Paleo</option>
+						<option id="dietChoice" value="390^Pescetarian">Pescetarian</option>
+						<option id="dietChoice" value="386^Vegan">Vegan</option>
+						<option id="dietChoice" value="389^Ovo Vegetarian">Vegetarian</option>
+					  </select>
+					  <div id="diet">
+					  </div>
+					</div>
+					<div id="newlineBlock">
+					  <br>
+					</div>
+					</p>
+				</td>
+				<td width="50%" align="left" valign="top">
+					<p><font color="white" size="6" face="Berkshire Swash">Ingredients You Would</p><p>Like to Use:</p> </font></p>
+
+					<div id="IngredientsBlock">
+					<input id="makeNewIngredients" type="submit" value="+ Add Ingredient" style="font-size:16pt;height:30px;width:305px;font-family: Trebuchet MS">
+					<div id="ingredientsList">
+						<input id="ingredients" type="text" placeholder="Enter Ingredient" style="font-size:16pt;height:40px;width:300px;font-family: Trebuchet MS">
+						<div id="newIngredients" >
+						</div>
+					</div>
+					</div>
+					<script>
+					// Function to create new text query boxes
+					$("#makeNewIngredients").on(
+					  "click",
+					  function(event) {
+						var inputElement = jQuery(
+						  "<input>", {
+							"id": "ingredients",
+							"type": "text",
+							"style": "font-size:16pt;height:40px;width:300px;font-family: Trebuchet MS",
+							"placeholder": "Enter Ingredient"
+						  });
+
+						// To force a new line to be created
+						$("#ingredientsList").prepend("<br>");
+						$("#ingredientsList").prepend(inputElement);
+						console.log(
+						  "Ingredients Block:", document.getElementById("ingredientsBlock"));
+					  });
+					</script>
+					<div id="newlineBlock">
+					  <br>
+					</div>
+					<a href="#search-results">
+					<input id="submitIngredients" type="submit" value="Submit" id="input-submit" style="font-size:16pt;height:48px;width:305px;font-family: Trebuchet MS"></a>
+				</td>
+			</tr>
+			</center></table>
+		</td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="30">
+	<tr>
+		<td></td>
+	</tr>
+</table>
+<table width = "100%" cellpadding="40">
+	<tr bgcolor="Black">
+		<td>
+			<p><font color="white" size="15" face="Berkshire Swash"><center><a id="search-results">Your Results</a></center></font></p>
+		</td>
+	</tr>
+	<tr bgcolor="White">
+		<td>
+			<table width="100%" cellpadding="20" id="insert-here" >
+				<tr>
+					<td width="33%" >
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS" >Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS">Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS">Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="33%">
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS">Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td width="33%">
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS">Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+							<div class="hovereffect">
+								<img class="img-responsive" src="images/defaultImg.jpg" alt="" style="width:360px;height:240px;">
+								<div class="overlay">
+								   <h2><font face="Trebuchet MS">Default Name: 20 min<p></p><font color=#49E20E	>100% Ingredient Match</font></font></h2>
+								   <a target="_blank" class="info" href="http://lmgtfy.com/?q=yummly/"><font face="Trebuchet MS">Click Here To View The Recipe!</font></a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+<style>
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+  transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+}
+
+.hovereffect:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-transform: translateY(45px);
+  -ms-transform: translateY(45px);
+  transform: translateY(45px);
+
+  -webkit-transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+  transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+}
+
+.hovereffect h3 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0);
+  -webkit-transform: translateY(45px);
+  -ms-transform: translateY(45px);
+  transform: translateY(45px);
+
+  -webkit-transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+  transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+	}
+
+.hovereffect:hover h2 {
+  -webkit-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.hovereffect:hover h3 {
+  -webkit-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  transform: translateY(5px);
+}
+.hovereffect a.info {
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+  transition: all 0.4s  cubic-bezier(0.88,-0.99, 0, 1.81);
+  font-weight: normal;
+  margin: -20px 0 0 0;
+  padding: 2px 1px;
+}
+
+.hovereffect:hover a.info {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.hovereffect a.info:hover {
+  box-shadow: 0 0 5px #fff;
+}
+</style>
+
+<style TYPE="text/css">
+
+   a:link, a:visited, a:hover, a:active { color: #ff8080;
+       text-decoration: none;
+     }
+
+    </style>
+
+<script>
+
+var key = "1cdb64cb06d9ab432bb8d89c9953a8c5";
+var id = "f7434ceb";
+var url_base = "https://api.yummly.com/v1/api/recipes?_app_id=" + id + "&_app_key=" + key;
+var userIngredientArr = [];
+var ingdtCorrelation = {};
+
+
+
+// Function  to create an array of ingredients and returns ingredient list, servings, time
+$("#submitIngredients").on(
+  "click",
+  function(event) {
+    ajax();
+  }
+);
+
+// Function to make query pull
+function ajax() {
+  var ingredientsDiv = document.getElementById("ingredientsList");
+  var it = ingredientsDiv.getElementsByTagName("input");
+
+  // Create String of Ingredients
+  var aIng = "&allowedIngredient[]=";
+  var exURL = url_base;
+  if (it.length >= 1) {
+    $.each(it, function(i) {
+      if ($(it[i]).val() != "") {
+        exURL += aIng + $(it[i]).val();
+        userIngredientArr.push($(it[i]).val());
+      }
+    });
+  }
+
+  var dietDiv = document.getElementById("dietaryBlock");
+  var getDiet = dietDiv.getElementsByTagName("input");
+
+  var timeDiv = document.getElementById("timeBlock");
+  var getTime = timeDiv.getElementsByTagName("input");
+
+  // Time  requirement
+  exURL += "&maxTotalTimeInSeconds=" + String(Number($(getTime).val()) * 60);
+
+  // Add Diet
+  if (getDietChoice() != "insig") {
+    exURL += "&allowedDiet[]=" + getDietChoice();
+  }
+
+  // Add Restriction: Show the top 50 results
+  exURL += "&maxResult=50";
+
+  console.log(exURL);
+  $.ajax({
+    url: exURL,
+    dataType: "json",
+    success: function(json) {
+      parseJson(json);
+    }
+  });
+
+}
+
+// Retrieves the option choice from the select element in HTML
+function getDietChoice() {
+  return $('option[id="dietChoice"]:checked').val();
+}
+
+// Function to parse JSON
+function parseJson(imported) {
+  if (imported.matches.length > 0) {
+    var recipes = [];
+    var count;
+    for (count = 0; count < imported.matches.length; count++) {
+      var url_bare = imported["matches"][count]["imageUrlsBySize"][90];
+      var r = {
+        "name": imported["matches"][count]["recipeName"],
+        "ingredientsArr": imported["matches"][count]["ingredients"],
+        "id": imported["matches"][count]["id"],
+        "time": String(Number(imported["matches"][count]["totalTimeInSeconds"]) / 60),
+        "url_img": url_bare.substring(0, url_bare.length - 4) + "360-c",
+        "ingredientsMatch": 0
+      }
+
+      // Calculate Ingredient Percentage
+      for (var a = 0; a < userIngredientArr.length; a++) {
+        var b;
+        for (var b = 0; b < r["ingredientsArr"].length; b++) {
+          if (
+            (r["ingredientsArr"][b].indexOf(userIngredientArr[a]) != -1) ||
+            (r["ingredientsArr"][b].indexOf(userIngredientArr[a].charAt(0).toUpperCase() + userIngredientArr[a].slice(1)) != -1)) {
+            r["ingredientsMatch"] += 1;
+          }
+        }
+      }
+      r["ingredientsMatch"] = Math.round((r["ingredientsMatch"] / r["ingredientsArr"].length) * 100);
+      recipes.push(r);
+    }
+    console.log(recipes);
+
+    recipes.sort(function(a, b) {
+      return b.ingredientsMatch - a.ingredientsMatch;
+    });
+
+    var htmlStr = "";
+    // Hyperlink for the specific recipe
+    for (count = 0; count < recipes.length; count++) {
+      if (count % 3 == 0) {
+        htmlStr += "<tr>";
+      }
+
+      htmlStr += '<td width="33%"><div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><div class="hovereffect"><img class="img-responsive" src="' + recipes[count].url_img + '" alt="" style="width:360px;height:240px;"><div class="overlay"><h2><font face="Trebuchet MS">' + recipes[count].name + ' : ' + recipes[count].time + ' minutes<p></p><font color="#29E20E">' + recipes[count].ingredientsMatch + '% INGREDIENT MATCH</font></font></h2><a target="_blank" class="info" href="http://www.yummly.co/#recipe/' + recipes[count].id + '"><font face="Trebuchet MS">Click Here to View the Recipe!</font></a></div></div></div></td>';
+      if (count % 3 == 2) {
+        htmlStr += "</tr>";
+      }
+    }
+    userIngredientArr = [];
+    $("#insert-here").html(htmlStr);
+  } else {
+    if (userIngredientArr.length < 4) {
+  var nothing = "<td width='100%'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><div class='hovereffect'><div class='overlay'><h2><font face='Trebuchet MS'>Your search returned no results. Try again, but choose more ingredients you want to search with.</font></h2>";
+  } else {
+  var nothing = "<td width='100%'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><div class='hovereffect'><div class='overlay'><h2><font face='Trebuchet MS'>Your search returned no results. Try being a little more selective of ingredients you want to cook with.</font></h2>";
+  } $("#insert-here").html(nothing);
+
+
+  }$("#attrib").html(+imported["attribution"]["html"]);
+}
+
+$(function() {
+  $('a[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+
+</script>
+</html>
